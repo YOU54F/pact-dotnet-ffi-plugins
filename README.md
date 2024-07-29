@@ -1,4 +1,4 @@
-# .NET Pact Plugin Scenarioes
+# .NET Pact Plugin Scenarios
 
 This repository contains a collection of pact plugin scenarios for the .NET Interop with the Pact FFI shared library.
 
