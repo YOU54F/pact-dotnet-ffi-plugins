@@ -21,13 +21,15 @@ test:
 get_pact_ffi:
 	./script/download-libs.sh
 
-get_pact_plugins: get_plugin_cli install_protobuf_plugin
+get_pact_plugins: get_plugin_cli install_matt_plugin
 
 get_plugin_cli:
 	./script/download-plugin-cli.sh
 
 install_protobuf_plugin:
-	${HOME}/.pact/cli/plugin/pact-plugin-cli -y install https://github.com/you54f/pact-protobuf-plugin/releases/latest
+	${HOME}/.pact/cli/plugin/pact-plugin-cli -y install https://github.com/pactflow/pact-protobuf-plugin/releases/latest
+install_matt_plugin:
+	${HOME}/.pact/cli/plugin/pact-plugin-cli$(EXE) -y install https://github.com/mefellows/pact-matt-plugin/releases/latest
 
 # Grpc.Tools do not provide precompiled binaries for alpine/musl - https://github.com/grpc/grpc/issues/24188#issuecomment-1403435551
 alpine_dotnet:
