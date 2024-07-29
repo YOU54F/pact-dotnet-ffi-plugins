@@ -54,7 +54,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
       - run: make get_pact_ffi
-      - run: make get_
+      - run: make get_pact_plugins
       - if: matrix.os == 'windows-latest'
         name: add ffi to path
         shell: pwsh
