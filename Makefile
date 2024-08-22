@@ -96,11 +96,11 @@ dotnet_plugin:
 	make dotnet_plugin_install_local 
 	make dotnet_plugin_client_test 
 
-ifeq ($(OS),Windows_NT)
-dotnet: dotnet_grpc dotnet_tcp dotnet_protobuf dotnet_plugin
-else
+# ifeq ($(OS),Windows_NT)
+# dotnet: dotnet_grpc dotnet_tcp dotnet_protobuf dotnet_plugin
+# else
 dotnet: dotnet_grpc dotnet_tcp dotnet_avro dotnet_protobuf dotnet_plugin
-endif
+# endif
 
 ABS_PATH_FFI_LIB=$(PWD)/$(pactffi_filename)
 JEXTRACT_PATH=./jextract-19/bin/jextract
