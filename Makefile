@@ -21,7 +21,7 @@ test:
 get_pact_ffi:
 	./script/download-libs.sh
 
-get_pact_plugins: get_plugin_cli install_matt_plugin
+get_pact_plugins: get_plugin_cli install_matt_plugin install_avro_plugin
 
 get_plugin_cli:
 	./script/download-plugin-cli.sh
