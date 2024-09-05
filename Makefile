@@ -31,7 +31,7 @@ install_protobuf_plugin:
 install_matt_plugin:
 	${HOME}/.pact/cli/plugin/pact-plugin-cli$(EXE) -y install https://github.com/mefellows/pact-matt-plugin/releases/latest
 install_avro_plugin:
-	${HOME}/.pact/cli/plugin/pact-plugin-cli$(EXE) -y install https://github.com/you54f/pact-avro-plugin/releases/latest
+	${HOME}/.pact/cli/plugin/pact-plugin-cli$(EXE) -y install https://github.com/austek/pact-avro-plugin/releases/latest
 
 # Grpc.Tools do not provide precompiled binaries for alpine/musl - https://github.com/grpc/grpc/issues/24188#issuecomment-1403435551
 alpine_dotnet:
@@ -96,11 +96,7 @@ dotnet_plugin:
 	make dotnet_plugin_install_local 
 	make dotnet_plugin_client_test 
 
-# ifeq ($(OS),Windows_NT)
-# dotnet: dotnet_grpc dotnet_tcp dotnet_protobuf dotnet_plugin
-# else
 dotnet: dotnet_grpc dotnet_tcp dotnet_avro dotnet_protobuf dotnet_plugin
-# endif
 
 ABS_PATH_FFI_LIB=$(PWD)/$(pactffi_filename)
 JEXTRACT_PATH=./jextract-19/bin/jextract
