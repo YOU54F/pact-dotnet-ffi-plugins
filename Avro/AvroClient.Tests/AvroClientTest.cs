@@ -27,7 +27,7 @@ namespace AvroClient.Tests
                     ""id"": ""matching(number, 1)"",
                     ""username"": ""notEmpty('matt')""
                 }}";
-            Pact.PluginAdd(pact, "avro", "0.0.5");
+            Pact.PluginAdd(pact, "avro", "0.0.6");
             Pact.WithRequest(interaction,"GET", "/avro");
             Pact.ResponseStatus(interaction,200);
             Pact.PluginInteractionContents(interaction, Pact.InteractionPart.Response, "avro/binary", content);
@@ -69,7 +69,7 @@ namespace AvroClient.Tests
                     ""id"": ""matching(number, 1)"",
                     ""username"": ""notEmpty('matt')""
                 }}";
-            Pact.PluginAdd(pact, "avro", "0.0.5");
+            Pact.PluginAdd(pact, "avro", "0.0.6");
             Pact.WithRequest(interaction,"GET", "/avro");
             Pact.ResponseStatus(interaction,200);
             Pact.PluginInteractionContents(interaction, Pact.InteractionPart.Response, "avro/binary", content);
