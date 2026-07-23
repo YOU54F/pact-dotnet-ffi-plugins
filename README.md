@@ -46,14 +46,14 @@ Download the package into the local source folder:
 
 ```sh
 mkdir -p ./.nuget/local
-curl -L -o ./.nuget/local/PactNet.5.1.0-beta.1.nupkg \
-  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.1/PactNet.5.1.0-beta.1.nupkg
-curl -L -o ./.nuget/local/PactNet.Abstractions.5.1.0-beta.1.nupkg \
-  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.1/PactNet.Abstractions.5.1.0-beta.1.nupkg
-curl -L -o ./.nuget/local/PactNet.Extensions.Grpc.5.1.0-beta.1.nupkg \
-  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.1/PactNet.Extensions.Grpc.5.1.0-beta.1.nupkg
+curl -L -o ./.nuget/local/PactNet.5.1.0-beta.2.nupkg \
+  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.2/PactNet.5.1.0-beta.2.nupkg
+curl -L -o ./.nuget/local/PactNet.Abstractions.5.1.0-beta.2.nupkg \
+  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.2/PactNet.Abstractions.5.1.0-beta.2.nupkg
+curl -L -o ./.nuget/local/PactNet.Extensions.Grpc.5.1.0-beta.2.nupkg \
+  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.2/PactNet.Extensions.Grpc.5.1.0-beta.2.nupkg
 curl -L -o ./.nuget/local/PactNet.Output.Xunit.1.0.0.nupkg \
-  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.1/PactNet.Output.Xunit.1.0.0.nupkg
+  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.2/PactNet.Output.Xunit.1.0.0.nupkg
 ```
 
 Then restore as normal from the repo root:
@@ -65,20 +65,20 @@ dotnet restore
 If you want to add/update package references using this local source explicitly:
 
 ```sh
-dotnet add <project.csproj> package PactNet --version 5.1.0-beta.1 --source ./.nuget/local
+dotnet add <project.csproj> package PactNet --version 5.1.0-beta.2 --source ./.nuget/local
 ```
 
 eg.
 
 ```
-dotnet add GrpcGreeter.Tests.csproj package PactNet --version 5.1.0-beta.1 --source ../../.nuget/local
-dotnet add GrpcGreeter.Tests.csproj package PactNet.Abstractions --version 5.1.0-beta.1 --source ../../.nuget/local
-dotnet add GrpcGreeter.Tests.csproj package PactNet.Extensions.Grpc --version 5.1.0-beta.1 --source ../../.nuget/local
+dotnet add GrpcGreeter.Tests.csproj package PactNet --version 5.1.0-beta.2 --source ../../.nuget/local
+dotnet add GrpcGreeter.Tests.csproj package PactNet.Abstractions --version 5.1.0-beta.2 --source ../../.nuget/local
+dotnet add GrpcGreeter.Tests.csproj package PactNet.Extensions.Grpc --version 5.1.0-beta.2 --source ../../.nuget/local
 dotnet add GrpcGreeter.Tests.csproj package PactNet.Output.Xunit --version 1.0.0 --source ../../.nuget/local
 dotnet add GrpcGreeterClient.Tests.csproj package PactNet.Output.Xunit --version 1.0.0 --source ../../.nuget/local
-dotnet add GrpcGreeterClient.Tests.csproj package PactNet --version 5.1.0-beta.1 --source ../../.nuget/local
-dotnet add GrpcGreeterClient.Tests.csproj package PactNet.Abstractions --version 5.1.0-beta.1 --source ../../.nuget/local
-dotnet add GrpcGreeterClient.Tests.csproj package PactNet.Extensions.Grpc --version 5.1.0-beta.1 --source ../../.nuget/local
+dotnet add GrpcGreeterClient.Tests.csproj package PactNet --version 5.1.0-beta.2 --source ../../.nuget/local
+dotnet add GrpcGreeterClient.Tests.csproj package PactNet.Abstractions --version 5.1.0-beta.2 --source ../../.nuget/local
+dotnet add GrpcGreeterClient.Tests.csproj package PactNet.Extensions.Grpc --version 5.1.0-beta.2 --source ../../.nuget/local
 ```
 
 ## Scenarios
