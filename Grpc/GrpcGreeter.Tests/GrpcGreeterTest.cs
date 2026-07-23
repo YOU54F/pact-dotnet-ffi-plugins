@@ -19,7 +19,8 @@ namespace GrpcGreeter.Tests
             LogLevel = PactLogLevel.Information,
             Outputters = new List<IOutput>
             {
-                new XunitOutput(output)
+                new XunitOutput(output),
+                new ConsoleOutput()
             }
         });
 

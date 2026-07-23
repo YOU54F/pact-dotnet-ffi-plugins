@@ -10,6 +10,7 @@ using PactNet;
 using PactNet.Exceptions;
 using PactNet.Output.Xunit;
 using Xunit.Abstractions;
+using PactNet.Infrastructure.Outputters;
 
 namespace GrpcGreeterClient.Tests
 {
@@ -22,7 +23,11 @@ namespace GrpcGreeterClient.Tests
             var config = new PactConfig
             {
                 PactDir = "../../../../pacts/",
-                Outputters = new[] { new XunitOutput(output) },
+                Outputters = new List<IOutput>
+                {
+                    new XunitOutput(output),
+                    new ConsoleOutput()
+                },
                 DefaultJsonSettings = new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
