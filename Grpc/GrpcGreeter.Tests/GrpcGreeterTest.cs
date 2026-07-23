@@ -1,54 +1,52 @@
-using System.Threading.Tasks;
-using System.Threading;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using FluentAssertions;
+using PactNet;
+using PactNet.Exceptions;
+using PactNet.Infrastructure.Outputters;
 using Xunit;
-using PactFfi;
+using PactNet.Output.Xunit;
+using PactNet.Verifier;
+using Xunit.Abstractions;
 
 namespace GrpcGreeter.Tests
 {
-    public class GrpcGreeterTests
+    public class GrpcGreeterTests(ITestOutputHelper output, ServerFixture serverFixture) : IClassFixture<ServerFixture>, IDisposable
     {
-
-        [Fact]
-        public void ReturnsVerificationFailureWhenNoRunningProvider()
+        private readonly PactVerifier verifier = new("Grpc Greeter Api", new PactVerifierConfig
         {
-
-            _ = Pact.LogToStdOut(3);
-
-            var verifier = Pact.VerifierNewForApplication("pact-dotnet","0.0.0");
-            Pact.VerifierSetProviderInfo(verifier,"grpc-greeter",null,null,0,null);
-            Pact.AddProviderTransport(verifier, "grpc",5060,"/","http");
-            Pact.VerifierAddFileSource(verifier,"../../../../pacts/grpc-greeter-client-grpc-greeter.json");
-            var VerifierExecuteResult = Pact.VerifierExecute(verifier);
-            VerifierExecuteResult.Should().Be(1);
-        }
-        [Fact]
-        public async Task ReturnsVerificationSuccessRunningProviderAsync()
-        {
-            _ = Pact.LogToStdOut(3);
-
-            var verifier = Pact.VerifierNewForApplication("pact-dotnet", "0.0.0");
-            Pact.VerifierSetProviderInfo(verifier, "grpc-greeter", null, null, 0, null);
-            Pact.AddProviderTransport(verifier, "grpc", 5000, "/", "https");
-            Pact.VerifierAddFileSource(verifier, "../../../../pacts/grpc-greeter-client-grpc-greeter.json");
-
-            // Arrange
-            // Setup our app to run before our verifier executes
-            // Setup a cancellation token so we can shutdown the app after
-            var cts = new CancellationTokenSource();
-            var token = cts.Token;
-            var runAppTask = Task.Run(async () =>
+            LogLevel = PactLogLevel.Information,
+            Outputters = new List<IOutput>
             {
-                await GrpcGreeterService.RunApp([], token);
-            }, token);
-            await Task.Delay(2000);
+                new XunitOutput(output)
+            }
+        });
 
-            // Act
-            var VerifierExecuteResult = Pact.VerifierExecute(verifier);
-            VerifierExecuteResult.Should().Be(0);
-            Pact.VerifierShutdown(verifier);
-            // After test execution, signal the task to terminate
-            cts.Cancel();
+        private readonly string pactPath = Path.Combine("..", "..", "..", "..", "..", "Grpc", "pacts",
+            "grpc-greeter-client-grpc-greeter.json");
+
+        [Fact]
+        public void VerificationThrowsExceptionWhenNoRunningProvider()
+        {
+            var source = this.verifier
+                .WithHttpEndpoint(new Uri("http://localhost:5060"))
+                .WithFileSource(new FileInfo(this.pactPath));
+
+            source.Invoking(s => s.Verify()).Should().Throw<PactVerificationFailedException>();
+        }
+
+        [Fact]
+        public void VerificationSuccessForRunningProvider()
+        {
+            verifier.WithHttpEndpoint(serverFixture.ProviderUri)
+                .WithFileSource(new FileInfo(pactPath))
+                .Verify();
+        }
+
+        public void Dispose()
+        {
+            this.verifier?.Dispose();
         }
     }
 }

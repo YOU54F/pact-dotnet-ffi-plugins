@@ -36,6 +36,51 @@ This repository contains a collection of pact plugin scenarios for the .NET Inte
     └── TcpListener.Tests
 ```
 
+## Local PactNet Package Source
+
+This repo includes a root `NuGet.config` with a local package source at `./.nuget/local`.
+That allows the team to restore a locally downloaded `PactNet` pre-release package without
+publishing it to NuGet.org or another remote feed.
+
+Download the package into the local source folder:
+
+```sh
+mkdir -p ./.nuget/local
+curl -L -o ./.nuget/local/PactNet.5.1.0-beta.1.nupkg \
+  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.1/PactNet.5.1.0-beta.1.nupkg
+curl -L -o ./.nuget/local/PactNet.Abstractions.5.1.0-beta.1.nupkg \
+  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.1/PactNet.Abstractions.5.1.0-beta.1.nupkg
+curl -L -o ./.nuget/local/PactNet.Extensions.Grpc.5.1.0-beta.1.nupkg \
+  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.1/PactNet.Extensions.Grpc.5.1.0-beta.1.nupkg
+curl -L -o ./.nuget/local/PactNet.Output.Xunit.1.0.0.nupkg \
+  https://github.com/YOU54F/pact-net/releases/download/5.1.0-beta.1/PactNet.Output.Xunit.1.0.0.nupkg
+```
+
+Then restore as normal from the repo root:
+
+```sh
+dotnet restore
+```
+
+If you want to add/update package references using this local source explicitly:
+
+```sh
+dotnet add <project.csproj> package PactNet --version 5.1.0-beta.1 --source ./.nuget/local
+```
+
+eg.
+
+```
+dotnet add GrpcGreeter.Tests.csproj package PactNet --version 5.1.0-beta.1 --source ../../.nuget/local
+dotnet add GrpcGreeter.Tests.csproj package PactNet.Abstractions --version 5.1.0-beta.1 --source ../../.nuget/local
+dotnet add GrpcGreeter.Tests.csproj package PactNet.Extensions.Grpc --version 5.1.0-beta.1 --source ../../.nuget/local
+dotnet add GrpcGreeter.Tests.csproj package PactNet.Output.Xunit --version 1.0.0 --source ../../.nuget/local
+dotnet add GrpcGreeterClient.Tests.csproj package PactNet.Output.Xunit --version 1.0.0 --source ../../.nuget/local
+dotnet add GrpcGreeterClient.Tests.csproj package PactNet --version 5.1.0-beta.1 --source ../../.nuget/local
+dotnet add GrpcGreeterClient.Tests.csproj package PactNet.Abstractions --version 5.1.0-beta.1 --source ../../.nuget/local
+dotnet add GrpcGreeterClient.Tests.csproj package PactNet.Extensions.Grpc --version 5.1.0-beta.1 --source ../../.nuget/local
+```
+
 ## Scenarios
 
 ### Avro

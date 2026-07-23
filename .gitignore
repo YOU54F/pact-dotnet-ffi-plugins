@@ -20,3 +20,6 @@ scratchpad
 *.log
 obj/
 bin/
+
+# Local/offline NuGet packages used by this repository.
+/.nuget/local/*.nupkg

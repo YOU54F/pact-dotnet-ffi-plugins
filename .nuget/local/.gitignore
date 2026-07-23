@@ -1,0 +1,2 @@
+# Keep the folder, but ignore local package binaries.
+*.nupkg

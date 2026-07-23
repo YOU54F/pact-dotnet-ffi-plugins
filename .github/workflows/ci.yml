@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  dotnet:
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-15, macos-15-intel, ubuntu-22.04-arm]
+        example: [grpc]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      - if: runner.os == 'Windows'
+        run: rm 'C:\Windows\System32\bash.exe'
+        name: 'remove wsl bash'
+      - uses: actions/setup-java@v4 # Needed for the Avro example
+        if: ${{ matrix.example == 'avro' }}
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: test ${{ matrix.example }} consumer
+        run: dotnet test
+        working-directory: Grpc/GrpcGreeterClient.Tests/
+      - name: test ${{ matrix.example }} provider
+        run: dotnet test
+        working-directory: Grpc/GrpcGreeter.Tests/
